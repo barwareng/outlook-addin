@@ -11,7 +11,7 @@
 	let password: string;
 </script>
 
-<Card.Root class="mx-auto max-w-sm">
+<Card.Root class="mx-auto max-w-sm bg-yellow-300">
 	<Card.Header>
 		<Card.Title class="text-2xl">Login</Card.Title>
 		<Card.Description>Enter your email below to login to your account</Card.Description>

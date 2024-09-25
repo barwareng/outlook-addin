@@ -4,15 +4,15 @@
     "manifestVersion": "1.17",
     "version": "1.0.0",
     "name": {
-        "short": "office-shell",
-        "full": "Contoso Task Pane Add-in"
+        "short": "Lockform",
+        "full": "Lockform"
     },
     "description": {
         "short": "A template to get started.",
         "full": "This is the template to get started."
     },
     "developer": {
-        "name": "Contoso",
+        "name": "Lockform",
         "websiteUrl": "https://www.contoso.com",
         "privacyUrl": "https://www.contoso.com/privacy",
         "termsOfUseUrl": "https://www.contoso.com/servicesagreement"
@@ -41,7 +41,7 @@
     ],
     "webApplicationInfo": {
         "id": "5c17ada0-175b-409f-a75c-d076e38274f5",
-        "resource": "http://localhost:5175/"
+        "resource": "http://127.0.0.1:5175/"
     },
     "extensions": [
         {
@@ -69,7 +69,7 @@
                     "id": "TaskPaneRuntime",
                     "type": "general",
                     "code": {
-                        "page": "http://localhost:5175/"
+                        "page": "http://127.0.0.1:5175/"
                     },
                     "lifetime": "short",
                     "actions": [
