@@ -9,8 +9,8 @@ import { view } from '$stores/views';
 import { Views } from './interfaces/views';
 import { PUBLIC_API_BASE_URL, PUBLIC_APP_NAME } from '$env/static/public';
 import { toastError, toastSuccess } from './toast';
+import { browser } from '$app/environment';
 
-// recei
 export const supertokensInit = () => {
 	SuperTokens.init({
 		appInfo: {
@@ -66,15 +66,6 @@ export const signinWithEmailAndPassword = async (email: string, password: string
 		if (err?.status >= 400 && err?.status < 500) view.set(Views.LOGIN);
 	}
 };
-export const checkSession = async () => {
-	if (getAccessToken() && getRefreshToken()) {
-		view.set(Views.HOME);
-		// toastSuccess('Session exists');
-	} else {
-		// toastError('Session does not exist');
-		view.set(Views.LOGIN);
-	}
-};
 
 export const persistentSignin = async (email: string, password: string) => {
 	const payload = JSON.stringify({
@@ -103,20 +94,53 @@ export const persistentSignin = async (email: string, password: string) => {
 	}
 };
 export const setAccessToken = (token: string) => {
-	if (!token) return;
+	if (!token || !browser) return;
 	localStorage.setItem('accessToken', token);
 };
 export const setRefreshToken = (token: string) => {
-	if (!token) return;
-	localStorage.setItem('accessToken', token);
+	if (!token || !browser) return;
+	localStorage.setItem('refreshToken', token);
 };
 export const getAccessToken = () => {
+	if (!browser) return;
 	return localStorage.getItem('accessToken');
 };
 export const getRefreshToken = () => {
+	if (!browser) return;
 	return localStorage.getItem('refreshToken');
+};
+
+export const doesSessionExist = () => {
+	if (getAccessToken() && getRefreshToken()) {
+		view.set(Views.HOME);
+		return true;
+	} else {
+		view.set(Views.LOGIN);
+		return false;
+	}
+};
+
+export const refreshToken = async () => {
+	try {
+		const res = await fetch(`${PUBLIC_API_BASE_URL}/auth/session/refresh`, {
+			method: 'post',
+			headers: {
+				Authorization: `Bearer ${getRefreshToken() ?? ''}`
+			}
+		});
+		const accessToken = res.headers.get('st-access-token');
+		const refreshToken = res.headers.get('st-refresh-token');
+		setAccessToken(accessToken!);
+		setRefreshToken(refreshToken!);
+		toastSuccess('Token refreshed');
+	} catch (error) {
+		toastError(error);
+	}
 };
 export const logout = async () => {
 	await Session.signOut();
 	view.set(Views.LOGIN);
+	if (!browser) return;
+	localStorage.removeItem('accessToken');
+	localStorage.removeItem('refreshToken');
 };
