@@ -8,8 +8,7 @@ import ThirdPartyEmailPassword, {
 import { view } from '$stores/views';
 import { Views } from './interfaces/views';
 import { PUBLIC_API_BASE_URL, PUBLIC_APP_NAME } from '$env/static/public';
-import { toastError } from './toast';
-import { toast } from 'svelte-sonner';
+import { toastError, toastSuccess } from './toast';
 
 // recei
 export const supertokensInit = () => {
@@ -21,9 +20,8 @@ export const supertokensInit = () => {
 		},
 		recipeList: [
 			Session.init({
-				autoAddCredentials: true
-				// sessionTokenBackendDomain: (VITE_SUPERTOKENS_COOKIE_DOMAIN as string) ?? undefined,
-				// sessionTokenFrontendDomain: (VITE_SUPERTOKENS_COOKIE_DOMAIN as string) ?? undefined,
+				autoAddCredentials: true,
+				tokenTransferMethod: 'header'
 			}),
 			ThirdPartyEmailPassword.init()
 		]
@@ -57,18 +55,66 @@ export const signinWithEmailAndPassword = async (email: string, password: string
 				}
 			});
 		} else if (response.status === 'WRONG_CREDENTIALS_ERROR') {
-			// TODO display error
 			passwordErrors = passwordErrors.concat('Email password combination is incorrect.');
-			toastError('Email password combination is incorrect.');
 		} else {
+			await persistentSignin(email, password);
 			view.set(Views.HOME);
 		}
 		return { emailErrors, passwordErrors };
 	} catch (err: any) {
-		console.log(err);
 		toastError(err);
 		if (err?.status >= 400 && err?.status < 500) view.set(Views.LOGIN);
 	}
+};
+export const checkSession = async () => {
+	if (getAccessToken() && getRefreshToken()) {
+		view.set(Views.HOME);
+		// toastSuccess('Session exists');
+	} else {
+		// toastError('Session does not exist');
+		view.set(Views.LOGIN);
+	}
+};
+
+export const persistentSignin = async (email: string, password: string) => {
+	const payload = JSON.stringify({
+		formFields: [
+			{
+				id: 'email',
+				value: email
+			},
+			{
+				id: 'password',
+				value: password
+			}
+		]
+	});
+	try {
+		const res = await fetch(`${PUBLIC_API_BASE_URL}/auth/signin`, {
+			method: 'post',
+			body: payload
+		});
+		const accessToken = res.headers.get('st-access-token');
+		const refreshToken = res.headers.get('st-refresh-token');
+		setAccessToken(accessToken!);
+		setRefreshToken(refreshToken!);
+	} catch (error) {
+		toastError(error);
+	}
+};
+export const setAccessToken = (token: string) => {
+	if (!token) return;
+	localStorage.setItem('accessToken', token);
+};
+export const setRefreshToken = (token: string) => {
+	if (!token) return;
+	localStorage.setItem('accessToken', token);
+};
+export const getAccessToken = () => {
+	return localStorage.getItem('accessToken');
+};
+export const getRefreshToken = () => {
+	return localStorage.getItem('refreshToken');
 };
 export const logout = async () => {
 	await Session.signOut();

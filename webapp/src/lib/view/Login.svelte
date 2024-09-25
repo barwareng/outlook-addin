@@ -5,13 +5,20 @@
 	import { Input } from '$lib/components/ui/input';
 	import { Label } from '$lib/components/ui/label';
 	import { signinWithEmailAndPassword } from '$utils/supertokens';
-	import { toastSuccess } from '$utils/toast';
-	import { onMount } from 'svelte';
+	import { TriangleAlertIcon } from 'lucide-svelte';
+
 	let email: string;
 	let password: string;
+	let emailErrors: string[] = [];
+	let passwordErrors: string[] = [];
+	const signIn = async () => {
+		const res = await signinWithEmailAndPassword(email, password);
+		emailErrors = res?.emailErrors!;
+		passwordErrors = res?.passwordErrors!;
+	};
 </script>
 
-<Card.Root class="mx-auto max-w-sm bg-yellow-300">
+<Card.Root class="mx-auto max-w-sm ">
 	<Card.Header>
 		<Card.Title class="text-2xl">Login</Card.Title>
 		<Card.Description>Enter your email below to login to your account</Card.Description>
@@ -21,6 +28,14 @@
 			<div class="grid gap-2">
 				<Label for="email">Email</Label>
 				<Input id="email" type="email" placeholder="mail@example.com" required bind:value={email} />
+				{#if emailErrors.length}
+					{#each emailErrors as error}
+						<div class="text-destructive flex items-center gap-x-1 text-xs">
+							<TriangleAlertIcon class="h-3 w-3" />
+							<p class="">{error}</p>
+						</div>
+					{/each}
+				{/if}
 			</div>
 			<div class="grid gap-2">
 				<div class="flex items-center">
@@ -34,14 +49,16 @@
 					</a>
 				</div>
 				<Input id="password" type="password" required bind:value={password} />
+				{#if passwordErrors.length}
+					{#each passwordErrors as error}
+						<div class="text-destructive flex items-center gap-x-1 text-xs">
+							<TriangleAlertIcon class="h-3 w-3" />
+							<p class="">{error}</p>
+						</div>
+					{/each}
+				{/if}
 			</div>
-			<Button
-				class="w-full"
-				on:click={() => {
-					toastSuccess('Logging in...');
-					signinWithEmailAndPassword(email, password);
-				}}>Login</Button
-			>
+			<Button class="w-full" disabled={!email || !password} on:click={signIn}>Login</Button>
 		</div>
 		<div class="mt-4 text-center text-sm">
 			Don&apos;t have an account?
