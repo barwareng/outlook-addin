@@ -1,8 +1,10 @@
 <script>
 	import { PUBLIC_PLATFORM_APP_BASE_URL } from '$env/static/public';
 	import '../app.css';
+	import { Toaster } from '$lib/components/ui/sonner';
 </script>
 
+<Toaster />
 <main class="bg-secondary min-h-screen min-w-full p-2">
 	<slot></slot>
 	<div class="absolute inset-x-0 bottom-0 p-2">

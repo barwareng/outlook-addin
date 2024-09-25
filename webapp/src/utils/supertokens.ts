@@ -8,7 +8,8 @@ import ThirdPartyEmailPassword, {
 import { view } from '$stores/views';
 import { Views } from './interfaces/views';
 import { PUBLIC_API_BASE_URL, PUBLIC_APP_NAME } from '$env/static/public';
-import { vi } from 'vitest';
+import { toastError } from './toast';
+import { toast } from 'svelte-sonner';
 
 // recei
 export const supertokensInit = () => {
@@ -58,11 +59,13 @@ export const signinWithEmailAndPassword = async (email: string, password: string
 		} else if (response.status === 'WRONG_CREDENTIALS_ERROR') {
 			// TODO display error
 			passwordErrors = passwordErrors.concat('Email password combination is incorrect.');
+			toastError('Email password combination is incorrect.');
 		} else {
 			view.set(Views.HOME);
 		}
 		return { emailErrors, passwordErrors };
 	} catch (err: any) {
+		console.log(err);
 		toastError(err);
 		if (err?.status >= 400 && err?.status < 500) view.set(Views.LOGIN);
 	}

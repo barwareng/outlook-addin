@@ -2,9 +2,11 @@
 	import Login from '$lib/view/Login.svelte';
 	import { view } from '$stores/views';
 	import { Views } from '$utils/interfaces/views';
+	import { supertokensInit } from '$utils/supertokens';
 	import { onMount } from 'svelte';
 	let subject = '';
 	onMount(() => {
+		supertokensInit();
 		const Office = window.Office;
 		Office.onReady(() => {
 			console.log('Office Ready!');

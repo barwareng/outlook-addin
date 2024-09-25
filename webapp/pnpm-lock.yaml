@@ -23,6 +23,9 @@ dependencies:
   cmdk-sv:
     specifier: ^0.0.18
     version: 0.0.18(svelte@4.2.19)
+  mode-watcher:
+    specifier: ^0.4.1
+    version: 0.4.1(svelte@4.2.19)
   supertokens-web-js:
     specifier: ^0.10.0
     version: 0.10.0
@@ -88,6 +91,9 @@ devDependencies:
   svelte-check:
     specifier: ^4.0.0
     version: 4.0.2(svelte@4.2.19)(typescript@5.6.2)
+  svelte-sonner:
+    specifier: ^0.3.28
+    version: 0.3.28(svelte@4.2.19)
   tailwindcss:
     specifier: ^3.4.9
     version: 3.4.13
@@ -2162,6 +2168,14 @@ packages:
     resolution: {integrity: sha512-qOOzS1cBTWYF4BH8fVePDBOO9iptMnGUEZwNc/cMWnTV2nVLZ7VoNWEPHkYczZA0pdoA7dl6e7FL659nX9S2aw==}
     engines: {node: '>=16 || 14 >=14.17'}
 
+  /mode-watcher@0.4.1(svelte@4.2.19):
+    resolution: {integrity: sha512-bNC+1NXmwEFZtziCdZSgP7HFQTpqJPcQn9GwwJQGSf6SBF3neEPYV1uRwkYuAQwbsvsXIYtzaqgedDzJ7D1mhg==}
+    peerDependencies:
+      svelte: ^4.0.0 || ^5.0.0-next.1
+    dependencies:
+      svelte: 4.2.19
+    dev: false
+
   /mri@1.2.0:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}
     engines: {node: '>=4'}
@@ -2746,6 +2760,14 @@ packages:
     engines: {node: ^12.20 || ^14.13.1 || >= 16}
     peerDependencies:
       svelte: ^3.19.0 || ^4.0.0
+    dependencies:
+      svelte: 4.2.19
+    dev: true
+
+  /svelte-sonner@0.3.28(svelte@4.2.19):
+    resolution: {integrity: sha512-K3AmlySeFifF/cKgsYNv5uXqMVNln0NBAacOYgmkQStLa/UoU0LhfAACU6Gr+YYC8bOCHdVmFNoKuDbMEsppJg==}
+    peerDependencies:
+      svelte: ^3.0.0 || ^4.0.0 || ^5.0.0-next.1
     dependencies:
       svelte: 4.2.19
     dev: true
