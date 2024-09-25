@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
+		<!-- https://stackoverflow.com/questions/42642863/office-js-nullifies-browser-history-functions-breaking-history-usage -->
+		<script type="text/javascript">
+			// Office js deletes window.history.pushState and window.history.replaceState. Cache them and restore them
+			window._historyCache = {
+				replaceState: window.history.replaceState,
+				pushState: window.history.pushState
+			};
+		</script>
+
+		<script
+			type="text/javascript"
+			src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"
+		></script>
+
+		<script type="text/javascript">
+			// Office js deletes window.history.pushState and window.history.replaceState. Restore them
+			window.history.replaceState = window._historyCache.replaceState;
+			window.history.pushState = window._historyCache.pushState;
+		</script>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		%sveltekit.head%
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents">%sveltekit.body%</div>
+	</body>
+</html>
