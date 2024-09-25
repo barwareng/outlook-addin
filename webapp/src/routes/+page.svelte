@@ -1,19 +1,22 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-	import Button from '$lib/components/ui/button/button.svelte';
+	import Login from '$lib/view/Login.svelte';
+	import { view } from '$stores/views';
+	import { Views } from '$utils/interfaces/views';
 	import { onMount } from 'svelte';
 	let subject = '';
 	onMount(() => {
 		const Office = window.Office;
 		Office.onReady(() => {
 			console.log('Office Ready!');
-			subject = Office.context.mailbox.item?.subject;
+			subject = Office.context.mailbox.item?.subject!;
 			Office.context.mailbox.addHandlerAsync(Office.EventType.ItemChanged, () => {
-				subject = Office.context.mailbox.item?.subject;
+				subject = Office.context.mailbox.item?.subject!;
+				console.log('Subject:', subject);
 			});
 		});
 	});
 </script>
 
-<p>{subject}</p>
-<Button on:click={() => goto('/login')}>Login</Button>
+{#if $view === Views.LOGIN}
+	<Login />
+{/if}
