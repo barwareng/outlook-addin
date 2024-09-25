@@ -137,6 +137,15 @@ export const refreshToken = async () => {
 		toastError(error);
 	}
 };
+
+export const fetchUserDetailsFromJwt = () => {
+	const accessToken = getAccessToken();
+	const body = accessToken?.split('.')[1];
+	const base64 = body?.replace(/-/g, '+')?.replace(/_/g, '/');
+	if (!base64) return;
+	return JSON.parse(atob(base64));
+};
+
 export const logout = async () => {
 	await Session.signOut();
 	view.set(Views.LOGIN);

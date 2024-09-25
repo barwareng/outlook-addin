@@ -3,6 +3,7 @@ import { ClientResponseError } from './ClientResponseError';
 import type { SendOptions } from './services/utils/options';
 import { VerificationService } from './services/VerificationService';
 import { PUBLIC_API_BASE_URL } from '$env/static/public';
+import { getTeamId } from '$utils';
 // list of known SendOptions keys (everything else is treated as query param)
 const knownSendOptionsKeys = [
 	'fetch',
@@ -209,6 +210,13 @@ export default class Client {
 		options.headers = Object.assign({}, options.headers, {
 			Authorization: `Bearer ${getAccessToken()}`
 		});
+
+		const teamId = getTeamId();
+		if (teamId) {
+			options.headers = Object.assign({}, options.headers, {
+				teamId
+			});
+		}
 
 		// handle auto cancelation for duplicated pending request
 		if (this.enableAutoCancellation && options.requestKey !== null) {
