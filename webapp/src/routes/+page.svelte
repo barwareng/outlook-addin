@@ -13,7 +13,6 @@
 		supertokensInit();
 		const Office = window.Office;
 		doesSessionExist();
-		await client.verification.getAll();
 		Office.onReady(() => {
 			toastSuccess('Office is ready');
 			subject = Office.context.mailbox.item?.subject!;
