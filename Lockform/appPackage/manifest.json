@@ -1,18 +1,18 @@
 {
     "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.17/MicrosoftTeams.schema.json",
-    "id": "5c17ada0-175b-409f-a75c-d076e38274f5",
+    "id": "510661f9-0ef7-4dc1-9d11-916412d5de95",
     "manifestVersion": "1.17",
     "version": "1.0.0",
     "name": {
         "short": "Lockform",
-        "full": "Lockform"
+        "full": "Contoso Task Pane Add-in"
     },
     "description": {
         "short": "A template to get started.",
         "full": "This is the template to get started."
     },
     "developer": {
-        "name": "Lockform",
+        "name": "Contoso",
         "websiteUrl": "https://www.contoso.com",
         "privacyUrl": "https://www.contoso.com/privacy",
         "termsOfUseUrl": "https://www.contoso.com/servicesagreement"
@@ -39,10 +39,6 @@
     "validDomains": [
         "contoso.com"
     ],
-    "webApplicationInfo": {
-        "id": "5c17ada0-175b-409f-a75c-d076e38274f5",
-        "resource": "http://127.0.0.1:5175/"
-    },
     "extensions": [
         {
             "requirements": {
@@ -69,15 +65,31 @@
                     "id": "TaskPaneRuntime",
                     "type": "general",
                     "code": {
-                        "page": "http://127.0.0.1:5175/"
+                        "page": "https://localhost:3000/taskpane.html"
                     },
                     "lifetime": "short",
                     "actions": [
                         {
                             "id": "TaskPaneRuntimeShow",
                             "type": "openPage",
-                            "pinnable": true,
+                            "pinnable": false,
                             "view": "dashboard"
+                        }
+                    ]
+                },
+                {
+                    "id": "CommandsRuntime",
+                    "type": "general",
+                    "code": {
+                        "page": "https://localhost:3000/commands.html",
+                        "script": "https://localhost:3000/commands.js"
+                    },
+                    "lifetime": "short",
+                    "actions": [
+                        {
+                            "id": "action",
+                            "type": "executeFunction",
+                            "displayName": "action"
                         }
                     ]
                 }
@@ -87,12 +99,6 @@
                     "contexts": [
                         "mailRead"
                     ],
-                    "requirements": {
-                        "formFactors": [
-                            "desktop",
-                            "mobile"
-                        ]
-                    },
                     "tabs": [
                         {
                             "builtInTabId": "TabDefault",
@@ -138,6 +144,30 @@
                                                 "description": "Opens a pane displaying all available properties."
                                             },
                                             "actionId": "TaskPaneRuntimeShow"
+                                        },
+                                        {
+                                            "id": "ActionButton",
+                                            "type": "button",
+                                            "label": "Perform an action",
+                                            "icons": [
+                                                {
+                                                    "size": 16,
+                                                    "url": "https://localhost:3000/assets/icon-16.png"
+                                                },
+                                                {
+                                                    "size": 32,
+                                                    "url": "https://localhost:3000/assets/icon-32.png"
+                                                },
+                                                {
+                                                    "size": 80,
+                                                    "url": "https://localhost:3000/assets/icon-80.png"
+                                                }
+                                            ],
+                                            "supertip": {
+                                                "title": "Perform an action",
+                                                "description": "Perform an action when clicked."
+                                            },
+                                            "actionId": "action"
                                         }
                                     ]
                                 }
