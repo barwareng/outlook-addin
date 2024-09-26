@@ -5,7 +5,10 @@
 	import { doesSessionExist, logout } from '$utils/supertokens';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import { LogOut } from 'lucide-svelte';
+	import { ModeWatcher } from 'mode-watcher';
 </script>
+
+<ModeWatcher />
 
 <Toaster />
 <main class="bg-secondary min-h-screen min-w-full p-2">

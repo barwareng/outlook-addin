@@ -5,6 +5,7 @@
 	import { view } from '$stores/views';
 	import { Views } from '$utils/interfaces/views';
 	import { doesSessionExist, supertokensInit } from '$utils/supertokens';
+	import { parseThread } from '$utils/thread-parser';
 	import { toastError, toastSuccess } from '$utils/toast';
 	import { onMount } from 'svelte';
 	let subject = '';
@@ -15,17 +16,9 @@
 		doesSessionExist();
 		Office.onReady(() => {
 			toastSuccess('Office is ready');
-			subject = Office.context.mailbox.item?.subject!;
-			toastError(JSON.stringify(Office.context.mailbox.item));
+
 			Office.context.mailbox.addHandlerAsync(Office.EventType.ItemChanged, async () => {
-				toastError('fgjlksdjh');
-				if (!doesSessionExist()) return;
-				subject = Office.context.mailbox.item?.subject!;
-				toastSuccess('Subject:', subject);
-				const item = Office.context.mailbox.item;
-				item?.cc.getAsync((result) => {
-					toastSuccess(`CC: ${result.value}`);
-				});
+				parseThread(Office.context.mailbox.item);
 			});
 		});
 	});
