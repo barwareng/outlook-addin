@@ -5,9 +5,11 @@
 	import { doesSessionExist, logout } from '$utils/supertokens';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import { LogOut } from 'lucide-svelte';
+	import { ModeWatcher } from 'mode-watcher';
 </script>
 
 <Toaster />
+<ModeWatcher />
 <main class="bg-secondary min-h-screen min-w-full p-2">
 	<slot></slot>
 	<div class="absolute inset-x-0 bottom-0 flex items-center justify-between p-2">

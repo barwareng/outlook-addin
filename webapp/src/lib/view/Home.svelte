@@ -6,18 +6,18 @@
 
 	export let categories = [
 		{
-			name: 'Category 1',
-			description: 'Description 1',
+			name: 'Uknown Contacts',
+			description: 'You or your team have not interacted with these contacts',
 			count: 10
 		},
 		{
-			name: 'Category 2',
-			description: 'Description 2',
+			name: 'Trusted Contacts',
+			description: 'Members of your team have interacted and trust with these contacts',
 			count: 20
 		},
 		{
-			name: 'Category 3',
-			description: 'Description 3',
+			name: 'Team Members',
+			description: 'These are your colleagues and team members',
 			count: 30
 		}
 	];

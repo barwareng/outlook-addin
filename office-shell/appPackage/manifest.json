@@ -145,27 +145,6 @@
                         }
                     ]
                 }
-            ],
-            "autoRunEvents": [
-                {
-                    "requirements": {
-                        "capabilities": [
-                            {
-                                "name": "Mailbox",
-                                "minVersion": "1.10"
-                            }
-                        ],
-                        "scopes": [
-                            "mail"
-                        ]
-                    },
-                    "events": [
-                        {
-                            "type": "onMessageRead",
-                            "actionId": "TaskPaneRuntimeShow"
-                        }
-                    ]
-                }
             ]
         }
     ]
