@@ -45,6 +45,7 @@
 		"@azure/msal-browser": "^3.24.0",
 		"@dicebear/collection": "^9.2.2",
 		"@dicebear/core": "^9.2.2",
+		"@microsoft/microsoft-graph-client": "^3.0.7",
 		"@microsoft/office-js": "^1.1.93",
 		"bits-ui": "^0.21.15",
 		"clsx": "^2.1.1",
