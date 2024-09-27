@@ -14,8 +14,12 @@ export const parseThread = (
 				Office.AppointmentRead)
 		| undefined
 ) => {
-	toastSuccess(item?.conversationId);
 	let contacts: IContactDetails[] = [];
 	contacts = contacts.concat({ name: item?.from?.displayName, email: item?.from?.emailAddress });
-	toastSuccess(JSON.stringify(contacts, null, 2));
+	contacts = contacts.concat(
+		item?.cc?.map((cc) => ({ name: cc.displayName, email: cc.emailAddress })) || []
+	);
+	contacts = contacts.concat({ name: item?.to?.displayName, email: item?.to?.emailAddress });
+	// toastSuccess(JSON.stringify(contacts, null, 2));
+	toastSuccess(item?.conversationId);
 };

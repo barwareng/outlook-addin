@@ -15,8 +15,9 @@
 		const Office = window.Office;
 		doesSessionExist();
 		Office.onReady(() => {
-			toastSuccess('Office is ready');
+			// toastSuccess('Office is ready');
 
+			parseThread(Office.context.mailbox.item);
 			Office.context.mailbox.addHandlerAsync(Office.EventType.ItemChanged, async () => {
 				parseThread(Office.context.mailbox.item);
 			});
