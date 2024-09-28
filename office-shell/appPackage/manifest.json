@@ -41,7 +41,7 @@
     ],
     "webApplicationInfo": {
         "id": "5c17ada0-175b-409f-a75c-d076e38274f5",
-        "resource": "http://127.0.0.1:5175/"
+        "resource": "http://localhost:5175/"
     },
     "extensions": [
         {
@@ -69,7 +69,7 @@
                     "id": "TaskPaneRuntime",
                     "type": "general",
                     "code": {
-                        "page": "http://127.0.0.1:5175/"
+                        "page": "http://localhost:5175/"
                     },
                     "lifetime": "short",
                     "actions": [
