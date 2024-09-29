@@ -11,7 +11,7 @@
 	import type { ITeam } from '$utils/interfaces/teams.interface';
 	import Avatar from './images/Avatar.svelte';
 	import { PUBLIC_PLATFORM_APP_BASE_URL } from '$env/static/public';
-	import { fetchUserDetailsFromJwt } from '$utils/supertokens';
+	import { fetchUserDetailsFromJwt } from '$utils/auth/supertokens';
 	import { onMount } from 'svelte';
 
 	let className: string | undefined | null = undefined;

@@ -1,4 +1,4 @@
-import { getAccessToken, refreshToken } from '$utils/supertokens';
+import { getAccessToken, refreshToken } from '$utils/auth/supertokens';
 import { ClientResponseError } from './ClientResponseError';
 import type { SendOptions } from './services/utils/options';
 import { VerificationService } from './services/VerificationService';

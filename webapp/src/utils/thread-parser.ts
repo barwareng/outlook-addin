@@ -1,4 +1,5 @@
 import type { IContactDetails } from './interfaces/contact.interface';
+import { getGraphData } from './ms-graph';
 import { toastSuccess } from './toast';
 
 export const parseThread = (
@@ -15,11 +16,9 @@ export const parseThread = (
 		| undefined
 ) => {
 	let contacts: IContactDetails[] = [];
-	contacts = contacts.concat({ name: item?.from?.displayName, email: item?.from?.emailAddress });
-	contacts = contacts.concat(
-		item?.cc?.map((cc) => ({ name: cc.displayName, email: cc.emailAddress })) || []
+	getGraphData(
+		`https://graph.microsoft.com/v1.0/me/messages?conversationId=${item?.conversationId}`
 	);
-	contacts = contacts.concat({ name: item?.to?.displayName, email: item?.to?.emailAddress });
-	// toastSuccess(JSON.stringify(contacts, null, 2));
-	// toastSuccess(item?.conversationId);
+
+	return contacts;
 };

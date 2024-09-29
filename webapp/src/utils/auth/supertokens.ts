@@ -6,9 +6,9 @@ import ThirdPartyEmailPassword, {
 } from 'supertokens-web-js/recipe/thirdpartyemailpassword';
 
 import { view } from '$stores/views';
-import { Views } from './interfaces/views';
+import { Views } from '../interfaces/views';
 import { PUBLIC_API_BASE_URL, PUBLIC_APP_NAME } from '$env/static/public';
-import { toastError, toastSuccess } from './toast';
+import { toastError, toastSuccess } from '../toast';
 import { browser } from '$app/environment';
 
 export const supertokensInit = () => {
