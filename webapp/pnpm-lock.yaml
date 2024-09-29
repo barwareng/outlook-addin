@@ -43,6 +43,9 @@ dependencies:
     version: 0.2.1(tailwindcss@3.4.13)
 
 devDependencies:
+  '@microsoft/microsoft-graph-types':
+    specifier: ^2.40.0
+    version: 2.40.0
   '@playwright/test':
     specifier: ^1.28.1
     version: 1.47.2
@@ -841,6 +844,10 @@ packages:
       '@babel/runtime': 7.25.6
       tslib: 2.7.0
     dev: false
+
+  /@microsoft/microsoft-graph-types@2.40.0:
+    resolution: {integrity: sha512-1fcPVrB/NkbNcGNfCy+Cgnvwxt6/sbIEEFgZHFBJ670zYLegENYJF8qMo7x3LqBjWX2/Eneq5BVVRCLTmlJN+g==}
+    dev: true
 
   /@microsoft/office-js@1.1.93:
     resolution: {integrity: sha512-78dF27gGALW9SO03xUuaCyxSAjRigeiH1WEjX3Zbw5tccE69E5L/cYMUh2H0CBHDdYS8sNSZv/YZU4SO3xH1nA==}

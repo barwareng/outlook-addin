@@ -6,6 +6,11 @@
 	import Button from '$lib/components/ui/button/button.svelte';
 	import { LogOut } from 'lucide-svelte';
 	import { ModeWatcher } from 'mode-watcher';
+	import { onMount } from 'svelte';
+	import { msGraph } from '$utils/ms-graph';
+	onMount(async () => {
+		await msGraph();
+	});
 </script>
 
 <ModeWatcher />
