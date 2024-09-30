@@ -28,8 +28,8 @@ export const parseThread = async (
 				name: recipient.displayName
 			};
 		});
-		toastSuccess(`Parsed ${JSON.stringify(contacts)} contacts`);
-		return contacts;
+		// toastSuccess(`Parsed ${JSON.stringify(contacts)} contacts`);
+		return (contacts = [...new Set(contacts)]);
 	} catch (error) {
 		console.error(error);
 		toastError(error);

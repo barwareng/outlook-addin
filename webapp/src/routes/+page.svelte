@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Contact from '$lib/components/reusable/Contact.svelte';
 	import Home from '$lib/view/Home.svelte';
 	import Login from '$lib/view/Login.svelte';
 	import { view } from '$stores/views';
@@ -11,7 +12,7 @@
 	import { onMount } from 'svelte';
 	let messages: Partial<IMessage>[];
 	let error: any;
-	let contacts: IContactDetails[] | undefined = [];
+	let contacts: IContactDetails[] = [];
 	onMount(async () => {
 		Office.onReady(async () => {
 			toastSuccess('Office is ready');
@@ -30,17 +31,7 @@
 	<Home />
 {/if}
 {#if contacts?.length}
-	<p>{contacts?.length}</p>
-{/if}
-{#if messages?.length}
-	{#each messages as message}
-		<div class="space-y-1">
-			{#if message.subject}
-				<p>Subject: {message.subject}</p>
-			{/if}
-			{#if message.sender}
-				<p>Sender: {message.sender.emailAddress.name} - {message.sender.emailAddress.address}</p>
-			{/if}
-		</div>
+	{#each contacts as contact}
+		<Contact {contact} />
 	{/each}
 {/if}
