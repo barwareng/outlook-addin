@@ -62,7 +62,8 @@ export const signinWithEmailAndPassword = async (email: string, password: string
 		}
 		return { emailErrors, passwordErrors };
 	} catch (err: any) {
-		toastError(err);
+		console.error(err);
+		// toastError(err);
 		if (err?.status >= 400 && err?.status < 500) view.set(Views.LOGIN);
 	}
 };

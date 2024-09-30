@@ -3,17 +3,21 @@
 	import Home from '$lib/view/Home.svelte';
 	import Login from '$lib/view/Login.svelte';
 	import { view } from '$stores/views';
+	import { supertokensInit } from '$utils/auth/supertokens';
 	import type { IContactDetails } from '$utils/interfaces/contact.interface';
 	import type { IMessage } from '$utils/interfaces/message.interface';
 	import { Views } from '$utils/interfaces/views';
 	import { parseThread } from '$utils/thread-parser';
 	import { toastSuccess } from '$utils/toast';
+	import { doesSessionExist } from 'supertokens-web-js/recipe/session';
 
 	import { onMount } from 'svelte';
 	let messages: Partial<IMessage>[];
 	let error: any;
 	let contacts: IContactDetails[] = [];
 	onMount(async () => {
+		supertokensInit();
+		doesSessionExist();
 		Office.onReady(async () => {
 			toastSuccess('Office is ready');
 			// await msGraph();
