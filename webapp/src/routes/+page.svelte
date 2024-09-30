@@ -5,21 +5,20 @@
 	import type { IContactDetails } from '$utils/interfaces/contact.interface';
 	import type { IMessage } from '$utils/interfaces/message.interface';
 	import { Views } from '$utils/interfaces/views';
-	import { graphClient, msGraph } from '$utils/ms-graph';
 	import { parseThread } from '$utils/thread-parser';
 	import { toastSuccess } from '$utils/toast';
 
 	import { onMount } from 'svelte';
 	let messages: Partial<IMessage>[];
 	let error: any;
-	let contacts: IContactDetails[];
+	let contacts: IContactDetails[] | undefined = [];
 	onMount(async () => {
 		Office.onReady(async () => {
 			toastSuccess('Office is ready');
 			// await msGraph();
-			contacts = await parseThread(Office.context.mailbox.item);
+			contacts = await parseThread(Office.context.mailbox.item!);
 			Office.context.mailbox.addHandlerAsync(Office.EventType.ItemChanged, async () => {
-				contacts = await parseThread(Office.context.mailbox.item);
+				contacts = await parseThread(Office.context.mailbox.item!);
 			});
 		});
 	});

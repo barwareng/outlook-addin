@@ -1,6 +1,5 @@
 import type { IContactDetails } from './interfaces/contact.interface';
-import type { IContact } from './interfaces/message.interface';
-import { graphClient } from './ms-graph';
+
 import { toastError, toastSuccess } from './toast';
 
 export const parseThread = async (
