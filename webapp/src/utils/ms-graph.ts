@@ -43,18 +43,18 @@ export const msGraph = async (type: 'popup' | 'redirect' = 'popup') => {
 		if (!authResult) {
 			// toastError('No authResult');
 			await pca.acquireTokenRedirect({
-				scopes: ['User.Read', 'Mail.Read']
+				scopes: ['User.Read', 'Mail.Read', 'Group.Read.All']
 			});
 		}
 	} else {
 		authResult = await pca.acquireTokenPopup({
-			scopes: ['User.Read', 'Mail.Read']
+			scopes: ['User.Read', 'Mail.Read', 'Group.Read.All']
 		});
 	}
 	const authProvider = new AuthCodeMSALBrowserAuthenticationProvider(pca, {
 		account: authResult.account,
 		interactionType: InteractionType.Silent,
-		scopes: ['User.Read', 'Mail.Read']
+		scopes: ['User.Read', 'Mail.Read', 'Group.Read.All']
 	});
 	graphClient = Client.initWithMiddleware({ authProvider: authProvider });
 };
