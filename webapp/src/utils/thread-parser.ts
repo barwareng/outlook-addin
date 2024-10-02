@@ -1,3 +1,4 @@
+import { client } from '$lib/api/Client';
 import type { IContactDetails } from './interfaces/contact.interface';
 
 import { toastError, toastSuccess } from './toast';
@@ -28,10 +29,11 @@ export const parseThread = async (
 				name: recipient.displayName
 			};
 		});
-		// toastSuccess(`Parsed ${JSON.stringify(contacts)} contacts`);
+		const categories = await client.verification.verify(contacts.flatMap((c) => c.email));
+		toastSuccess(`Parsed ${JSON.stringify(categories)} categories`);
 		return (contacts = [...new Set(contacts)]);
 	} catch (error) {
 		console.error(error);
-		toastError(error);
+		toastError(JSON.stringify(error));
 	}
 };

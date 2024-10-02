@@ -168,8 +168,7 @@ export default class Client {
 			.catch((err) => {
 				if (err.status === 401) {
 					refreshToken();
-				}
-				throw new ClientResponseError(err);
+				} else throw new ClientResponseError(err);
 			});
 	}
 

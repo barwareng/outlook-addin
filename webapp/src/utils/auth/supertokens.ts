@@ -129,12 +129,20 @@ export const refreshToken = async () => {
 				Authorization: `Bearer ${getRefreshToken() ?? ''}`
 			}
 		});
+		if (res.status === 401) {
+			view.set(Views.LOGIN);
+			if (!browser) return;
+			localStorage.removeItem('accessToken');
+			localStorage.removeItem('refreshToken');
+			return;
+		}
 		const accessToken = res.headers.get('st-access-token');
 		const refreshToken = res.headers.get('st-refresh-token');
 		setAccessToken(accessToken!);
 		setRefreshToken(refreshToken!);
 		toastSuccess('Token refreshed');
 	} catch (error) {
+		console.log('Refresh token error', error);
 		toastError(error);
 	}
 };

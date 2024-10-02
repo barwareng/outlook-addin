@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { client } from '$lib/api/Client';
 	import Contact from '$lib/components/reusable/Contact.svelte';
 	import Home from '$lib/view/Home.svelte';
 	import Login from '$lib/view/Login.svelte';
@@ -16,10 +17,25 @@
 	let error: any;
 	let contacts: IContactDetails[] = [];
 	onMount(async () => {
+		const values = [
+			'upus.barcleo@gmail.com',
+			'jiwer31259@eixdeal.com',
+			'hitiyat277@foraro.com',
+			'fwerfer',
+			'support@acme.com',
+			'+12015558949'
+		];
+		try {
+			const categories = await client.verification.verifyPublic(values);
+			console.log('Categories', categories);
+		} catch (error) {
+			console.log('Error fetching value', error);
+		}
 		supertokensInit();
 		doesSessionExist();
+
 		Office.onReady(async () => {
-			toastSuccess('Office is ready');
+			// toastSuccess('Office is ready');
 			// await msGraph();
 			contacts = await parseThread(Office.context.mailbox.item!);
 			Office.context.mailbox.addHandlerAsync(Office.EventType.ItemChanged, async () => {
@@ -34,8 +50,8 @@
 {:else if $view === Views.HOME}
 	<Home />
 {/if}
-{#if contacts?.length}
+<!-- {#if contacts?.length}
 	{#each contacts as contact}
 		<Contact {contact} />
 	{/each}
-{/if}
+{/if} -->
