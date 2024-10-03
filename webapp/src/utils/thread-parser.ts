@@ -1,7 +1,7 @@
 import { client } from '$lib/api/Client';
-import type { IContactDetails } from './interfaces/contact.interface';
+import type { IContactCategories, IContactDetails } from './interfaces/contact.interface';
 
-import { toastError, toastSuccess } from './toast';
+import { toastError } from './toast';
 
 export const parseThread = async (
 	item:
@@ -15,7 +15,7 @@ export const parseThread = async (
 				Office.AppointmentCompose &
 				Office.AppointmentRead)
 		| undefined
-) => {
+): Promise<{ contacts: IContactDetails[]; categories: IContactCategories }> => {
 	try {
 		if (!item) return;
 		let contacts: IContactDetails[] = [];
@@ -30,10 +30,9 @@ export const parseThread = async (
 			};
 		});
 		const categories = await client.verification.verify(contacts.flatMap((c) => c.email));
-		toastSuccess(`Parsed ${JSON.stringify(categories)} categories`);
-		return (contacts = [...new Set(contacts)]);
+
+		return { contacts: [...new Set(contacts)], categories };
 	} catch (error) {
-		console.error(error);
-		toastError(JSON.stringify(error));
+		toastError(error);
 	}
 };

@@ -1,9 +1,9 @@
 export interface IContactCategories {
 	flagged: string[];
+	untrustedContacts: string[];
 	unknown: string[];
 	verified: string[];
 	trustedContacts: string[];
-	untrustedContacts: string[];
 	teamMembers: string[];
 }
 export interface IContactDetails {

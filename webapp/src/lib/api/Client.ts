@@ -4,6 +4,7 @@ import type { SendOptions } from './services/utils/options';
 import { VerificationService } from './services/VerificationService';
 import { PUBLIC_API_BASE_URL } from '$env/static/public';
 import { getTeamId } from '$utils';
+import { toastError, toastSuccess } from '$utils/toast';
 // list of known SendOptions keys (everything else is treated as query param)
 const knownSendOptionsKeys = [
 	'fetch',
@@ -143,11 +144,10 @@ export default class Client {
 		return this.fetchFunc(url, options)
 			.then(async (response) => {
 				let data: any = {};
-
 				try {
 					data = await response.json();
 					if (data.message == 'try refresh token') {
-						refreshToken();
+						await refreshToken();
 						return this.send(path, options);
 					}
 				} catch (_) {
@@ -166,9 +166,12 @@ export default class Client {
 				return data.data as T;
 			})
 			.catch((err) => {
+				// toastError(`Got error: ${JSON.stringify(err)}`);
 				if (err.status === 401) {
 					refreshToken();
-				} else throw new ClientResponseError(err);
+				} else {
+					throw new ClientResponseError(err);
+				}
 			});
 	}
 

@@ -41,7 +41,7 @@
 				role="combobox"
 				aria-expanded={open}
 				aria-label="Select a team"
-				class={cn('mb-4 w-full justify-between rounded-full', className)}
+				class={cn('w-full justify-between rounded-full', className)}
 			>
 				{#key selectedTeam}
 					<Avatar src="" seed={selectedTeam?.id} class="mr-2 h-5 w-5" />
