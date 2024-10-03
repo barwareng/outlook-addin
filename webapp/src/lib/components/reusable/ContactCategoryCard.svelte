@@ -1,12 +1,19 @@
 <script lang="ts">
 	import * as Card from '$lib/components/ui/card';
+	import { view } from '$stores/views';
+	import { Views } from '$utils/interfaces/views';
 	import Avatar from './images/Avatar.svelte';
 	export let count = 0;
 	export let name = '';
 	export let description = '';
 </script>
 
-<Card.Root class="cursor-pointer p-2 " on:click>
+<Card.Root
+	class="cursor-pointer p-2 "
+	on:click={() => {
+		$view = Views.CONTACTS;
+	}}
+>
 	<div class="flex items-start gap-x-2">
 		<div class="relative">
 			<Avatar seed={name} src="" class="h-8 w-8" />

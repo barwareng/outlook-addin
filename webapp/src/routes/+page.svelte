@@ -35,11 +35,13 @@
 {#if $view === Views.LOGIN}
 	<Login />
 {:else}
-	<AuthenticatedWrapper>
-		{#if $view === Views.HOME}
-			<Home categories={parsed?.categories} />
-		{/if}
-	</AuthenticatedWrapper>
+	{#key parsed}
+		<AuthenticatedWrapper>
+			{#if $view === Views.HOME}
+				<Home categories={parsed?.categories} />
+			{/if}
+		</AuthenticatedWrapper>
+	{/key}
 {/if}
 <!-- {#if parsed.contacts?.length}
 	{#each contacts as contact}

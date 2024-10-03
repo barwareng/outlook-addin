@@ -1,4 +1,5 @@
 export enum Views {
 	HOME = 'HOME',
-	LOGIN = 'LOGIN'
+	LOGIN = 'LOGIN',
+	CONTACTS = 'CONTACTS'
 }

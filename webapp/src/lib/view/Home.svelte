@@ -1,70 +1,58 @@
 <script lang="ts">
 	import ContactCategoryCard from '$lib/components/reusable/ContactCategoryCard.svelte';
+	import Card from '$lib/components/ui/card/card.svelte';
 
 	import type { IContactCategories, IContactDetails } from '$utils/interfaces/contact.interface';
 	export let contactDetails: IContactDetails[] = [];
 
 	export let categories: IContactCategories;
 	let displayCategory: { name: string; description: string; count: number }[] = [];
-	$: console.log(categories);
+
 	const prepareContactCategories = () => {
-		categories &&
-			Object.entries(categories).forEach(([key, value]) => {
-				switch (key) {
-					case 'flagged':
-						if (value?.length)
-							displayCategory.push({
-								name: 'Flagged',
-								description: 'They have been flagged by other organizations or individuals',
-								count: value.length
-							});
-						break;
-					case 'untrustedContacts':
-						if (value?.length)
-							displayCategory.push({
-								name: 'Untrusted',
-								description: 'Yor or members of your team have flagged these contacts as untrusted',
-								count: value.length
-							});
-						break;
-					case 'unknown':
-						if (value?.length)
-							displayCategory.push({
-								name: 'Uknown',
-								description: 'You or you team have not interacted with these contacts',
-								count: value.length
-							});
-						break;
-					case 'verified':
-						if (value?.length)
-							displayCategory.push({
-								name: 'Verified',
-								description: 'These contacts have verified their identity or their organization',
-								count: value.length
-							});
-						break;
-					case 'trustedContacts':
-						if (value?.length)
-							displayCategory.push({
-								name: 'Trusted',
-								description: 'Members of your team have interacted and trusted these contacts',
-								count: value.length
-							});
-						break;
-					case 'teamMembers':
-						if (value?.length)
-							displayCategory.push({
-								name: 'Team members',
-								description: 'These are your colleagues or team members',
-								count: value.length
-							});
-						break;
-					default:
-						break;
-				}
+		if (categories.flagged) {
+			displayCategory.push({
+				name: 'Flagged',
+				description: 'They have been flagged by other organizations or individuals',
+				count: categories.flagged.length
 			});
+		}
+		if (categories.untrustedContacts) {
+			displayCategory.push({
+				name: 'Untrusted',
+				description: 'Yor or members of your team have flagged these contacts as untrusted',
+				count: categories.untrustedContacts.length
+			});
+		}
+		if (categories.unknown) {
+			displayCategory.push({
+				name: 'Uknown',
+				description: 'You or you team have not interacted with these contacts',
+				count: categories.unknown.length
+			});
+		}
+		if (categories.verified) {
+			displayCategory.push({
+				name: 'Verified',
+				description: 'These contacts have verified their identity or their organization',
+				count: categories.verified.length
+			});
+		}
+		if (categories.trustedContacts) {
+			displayCategory.push({
+				name: 'Trusted',
+				description: 'Members of your team have interacted and trusted these contacts',
+				count: categories.trustedContacts.length
+			});
+		}
+		if (categories.teamMembers) {
+			displayCategory.push({
+				name: 'Team members',
+				description: 'These are your colleagues or team members',
+				count: categories.teamMembers.length
+			});
+		}
 	};
-	$: prepareContactCategories();
+	$: categories && prepareContactCategories();
 </script>
 
 <div>
