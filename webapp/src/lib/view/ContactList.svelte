@@ -4,15 +4,12 @@
 	import { contactCategory, contactListKey, parsed, view } from '$stores/views';
 	import { Views } from '$utils/interfaces/views';
 	import { Undo } from 'lucide-svelte';
-	import { Separator } from '$lib/components/ui/separator';
 	import { slide } from 'svelte/transition';
 	let key: string;
 	$: key = $contactListKey;
-	$: contacts = $parsed.categories[key]?.map((email) => {
-		const contact = $parsed.contacts.find((contact) => contact.email === email);
-		return { ...contact, isTrusted: false };
-	});
-	$: console.log('Contacts', contacts, key);
+	$: contacts = $parsed.categories[key]?.map((email) =>
+		$parsed.contacts.find((contact) => contact.email === email)
+	);
 </script>
 
 <div transition:slide>

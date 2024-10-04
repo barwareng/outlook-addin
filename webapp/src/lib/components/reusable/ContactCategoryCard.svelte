@@ -8,9 +8,6 @@
 	export let key = '';
 	export let description = '';
 	export let emailAddresses: string[];
-	const viewContacts = () => {
-		// const contacts=emailAddresses.
-	};
 </script>
 
 <Card.Root class="cursor-pointer  ">

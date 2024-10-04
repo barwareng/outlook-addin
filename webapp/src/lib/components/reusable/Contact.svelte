@@ -4,14 +4,21 @@
 	import Button from '$lib/components/ui/button/button.svelte';
 	import Avatar from './images/Avatar.svelte';
 	import ContactActions from './ContactActions.svelte';
+	import { parsed } from '$stores/views';
 
-	export let contact: IContactDetails & { isTrusted: boolean };
+	export let contact: IContactDetails;
+	const isTrusted =
+		$parsed.categories.trustedContacts?.includes(contact.email) ||
+		$parsed.categories.teamMembers?.includes(contact.email) ||
+		$parsed.categories.verified?.includes(contact.email);
 </script>
 
 <Card.Root class="relative cursor-pointer p-3" on:on:click>
-	<div class="absolute right-2 top-2">
-		<ContactActions />
-	</div>
+	{#if !isTrusted}
+		<div class="absolute right-2 top-2">
+			<ContactActions email={contact.email} />
+		</div>
+	{/if}
 	<div class="flex items-start gap-x-2">
 		<div class="relative">
 			<Avatar seed={contact.email} src="" class="h-8 w-8" />
