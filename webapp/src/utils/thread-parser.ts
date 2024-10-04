@@ -15,10 +15,11 @@ export const parseThread = async (
 				Office.AppointmentCompose &
 				Office.AppointmentRead)
 		| undefined
-): Promise<{ contacts: IContactDetails[]; categories: IContactCategories }> => {
+): Promise<{ contacts: IContactDetails[]; categories: IContactCategories } | null> => {
+	let contacts: IContactDetails[] = [];
+	let categories: IContactCategories = {};
 	try {
-		if (!item) return;
-		let contacts: IContactDetails[] = [];
+		if (!item) return null;
 		const recipients = item.to
 			.concat(...item.cc)
 			.concat(item.from)
@@ -29,10 +30,12 @@ export const parseThread = async (
 				name: recipient.displayName
 			};
 		});
-		const categories = await client.verification.verify(contacts.flatMap((c) => c.email));
+		// Remove duplicates objects from contacts
+		contacts = Array.from(new Map(contacts.map((contact) => [contact.email, contact])).values());
 
-		return { contacts: [...new Set(contacts)], categories };
+		categories = await client.verification.verify(contacts.flatMap((c) => c.email));
 	} catch (error) {
 		toastError(error);
 	}
+	return { contacts, categories };
 };
