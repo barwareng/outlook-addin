@@ -16,7 +16,7 @@
 <Card.Root class="relative cursor-pointer p-3" on:on:click>
 	{#if !isTrusted}
 		<div class="absolute right-2 top-2">
-			<ContactActions email={contact.email} />
+			<ContactActions bind:contact />
 		</div>
 	{/if}
 	<div class="flex items-start gap-x-2">

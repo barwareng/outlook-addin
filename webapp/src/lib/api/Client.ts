@@ -2,9 +2,9 @@ import { getAccessToken, refreshToken } from '$utils/auth/supertokens';
 import { ClientResponseError } from './ClientResponseError';
 import type { SendOptions } from './services/utils/options';
 import { VerificationService } from './services/VerificationService';
+import { ContactService } from './services/ContactService';
 import { PUBLIC_API_BASE_URL } from '$env/static/public';
 import { getTeamId } from '$utils';
-import { toastError, toastSuccess } from '$utils/toast';
 // list of known SendOptions keys (everything else is treated as query param)
 const knownSendOptionsKeys = [
 	'fetch',
@@ -33,10 +33,12 @@ export default class Client {
 	private cancelControllers: { [key: string]: AbortController } = {};
 	private enableAutoCancellation = true;
 	verification: VerificationService;
+	contacts: ContactService;
 	constructor(baseUrl = '/', fetchFunc = fetch) {
 		this.fetchFunc = fetchFunc;
 		this.baseUrl = baseUrl;
 		this.verification = new VerificationService(this);
+		this.contacts = new ContactService(this);
 	}
 	// Set the fetch function as Sveltekit's event.fetch or window.fetch
 	setFetch(fetchFunc: typeof fetch): Client {
