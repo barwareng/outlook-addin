@@ -13,7 +13,7 @@
 	}[] = [];
 
 	const prepareContactCategories = () => {
-		if (categories.flagged) {
+		if (categories.flagged?.length) {
 			displayCategory.push({
 				key: 'flagged',
 				name: 'Flagged',
@@ -21,7 +21,7 @@
 				emailAddresses: categories.flagged
 			});
 		}
-		if (categories.untrustedContacts) {
+		if (categories.untrustedContacts?.length) {
 			displayCategory.push({
 				key: 'untrustedContacts',
 				name: 'Untrusted',
@@ -29,7 +29,7 @@
 				emailAddresses: categories.untrustedContacts
 			});
 		}
-		if (categories.unknown) {
+		if (categories.unknown?.length) {
 			displayCategory.push({
 				key: 'unknown',
 				name: 'Uknown',
@@ -37,7 +37,7 @@
 				emailAddresses: categories.unknown
 			});
 		}
-		if (categories.verified) {
+		if (categories.verified?.length) {
 			displayCategory.push({
 				key: 'verified',
 				name: 'Verified',
@@ -45,7 +45,7 @@
 				emailAddresses: categories.verified
 			});
 		}
-		if (categories.trustedContacts) {
+		if (categories.trustedContacts?.length) {
 			displayCategory.push({
 				key: 'trustedContacts',
 				name: 'Trusted',
@@ -53,7 +53,7 @@
 				emailAddresses: categories.trustedContacts
 			});
 		}
-		if (categories.teamMembers) {
+		if (categories.teamMembers?.length) {
 			displayCategory.push({
 				key: 'teamMembers',
 				name: 'Team members',

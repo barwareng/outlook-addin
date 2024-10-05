@@ -17,7 +17,6 @@
 	const updateTrustworthiness = async () => {
 		try {
 			updatingTrustworthiness = true;
-
 			await client.contacts.create({
 				contact: {
 					value: contact.email,
@@ -35,20 +34,29 @@
 			updatingTrustworthiness = false;
 			open = false;
 			// Update parsed store categories removing the value from a matching category
-			// parsed.update((parsed) => {
-			// 	Object.keys(parsed.categories).forEach((category) => {
-			// 		const index = parsed.categories[category].indexOf(contact.email);
-			// 		if (index > -1) {
-			// 			parsed.categories[category].splice(index, 1);
-			// 		}
-			// 	});
-			// });
+			removeContact(contact.email);
+			if (action == 'Trust') {
+				$parsed.categories.trustedContacts?.push(contact.email);
+			} else {
+				$parsed.categories.untrustedContacts?.push(contact.email);
+			}
 			toastSuccess(`Contact has been marked ${action == 'Trust' ? 'trusted' : 'untrusted'}.`);
 		} catch (error) {
 			updatingTrustworthiness = false;
 			open = false;
 			console.log(error);
 			toastError(error);
+		}
+	};
+
+	const removeContact = (email: string) => {
+		for (const category in $parsed.categories) {
+			if ($parsed.categories.hasOwnProperty(category)) {
+				// Filter the array to exclude the email if found
+				$parsed.categories[category] = $parsed.categories[category]?.filter(
+					(item) => item !== email
+				);
+			}
 		}
 	};
 </script>

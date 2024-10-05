@@ -35,6 +35,7 @@ export const parseThread = async (
 
 		categories = await client.verification.verify(contacts.flatMap((c) => c.email));
 	} catch (error) {
+		console.error('Thread parser', error);
 		toastError(error);
 	}
 	return { contacts, categories };

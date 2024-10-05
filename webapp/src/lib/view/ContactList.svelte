@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Contact from '$lib/components/reusable/Contact.svelte';
+	import EmptyState from '$lib/components/reusable/EmptyState.svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import { contactCategory, contactListKey, parsed, view } from '$stores/views';
 	import { Views } from '$utils/interfaces/views';
@@ -29,6 +30,10 @@
 			{#each contacts as contact}
 				<Contact {contact} />
 			{/each}
+		{:else}
+			<EmptyState title="No contacts" subtitle="It looks like you've cleared this list.">
+				<Button on:click={() => ($view = Views.HOME)}>Go Home</Button>
+			</EmptyState>
 		{/if}
 	</div>
 </div>

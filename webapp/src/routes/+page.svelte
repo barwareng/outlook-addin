@@ -35,7 +35,6 @@
 			});
 		});
 	});
-	$: console.log('View', $view);
 </script>
 
 {#if $view === Views.LOGIN}
