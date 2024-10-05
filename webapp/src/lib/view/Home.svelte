@@ -2,8 +2,6 @@
 	import ContactCategoryCard from '$lib/components/reusable/ContactCategoryCard.svelte';
 	import { parsed } from '$stores/views';
 
-	import type { IContactCategories, IContactDetails } from '$utils/interfaces/contact.interface';
-
 	$: categories = $parsed?.categories;
 	let displayCategory: {
 		key: string;

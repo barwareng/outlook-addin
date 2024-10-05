@@ -11,6 +11,7 @@
 <ModeWatcher />
 
 <Toaster />
+<ModeWatcher />
 <main class="bg-secondary min-h-screen min-w-full p-2">
 	<slot></slot>
 	<div class="absolute inset-x-0 bottom-0 flex items-center justify-between p-2">

@@ -60,4 +60,4 @@ deploy:
       # You can replace it with your existing Azure Resource id
       # or add it to your environment variable file.
       resourceId: ${{ADDIN_AZURE_STORAGE_RESOURCE_ID}}
-projectId: 7e0fcf55-6408-40af-916a-b37006e61ef0
+projectId: 9af284bd-d311-4471-86ff-6515e21f648a

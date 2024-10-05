@@ -58,7 +58,7 @@
 					{/each}
 				{/if}
 			</div>
-			<Button class="w-full" disabled={!email || !password} on:click={signIn}>Login</Button>
+			<Button class="w-full" on:click={signIn}>Login</Button>
 		</div>
 		<div class="mt-4 text-center text-sm">
 			Don&apos;t have an account?
