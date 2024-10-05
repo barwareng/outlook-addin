@@ -4,7 +4,7 @@
 	import * as Card from '$lib/components/ui/card';
 	import { Input } from '$lib/components/ui/input';
 	import { Label } from '$lib/components/ui/label';
-	import { signinWithEmailAndPassword } from '$utils/supertokens';
+	import { signinWithEmailAndPassword } from '$utils/auth/supertokens';
 	import { TriangleAlertIcon } from 'lucide-svelte';
 
 	let email: string;

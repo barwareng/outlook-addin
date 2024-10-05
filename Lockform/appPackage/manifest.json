@@ -39,6 +39,10 @@
     "validDomains": [
         "contoso.com"
     ],
+    "webApplicationInfo": {
+        "id": "5c17ada0-175b-409f-a75c-d076e38274f5",
+        "resource": "http://localhost:5175/"
+    },
     "extensions": [
         {
             "requirements": {
@@ -65,7 +69,7 @@
                     "id": "TaskPaneRuntime",
                     "type": "general",
                     "code": {
-                        "page": "https://localhost:3000/taskpane.html"
+                        "page": "http://localhost:5175/"
                     },
                     "lifetime": "short",
                     "actions": [
@@ -109,15 +113,15 @@
                                     "icons": [
                                         {
                                             "size": 16,
-                                            "url": "https://localhost:3000/assets/icon-16.png"
+                                            "url": "https://localhost:4000/assets/icon-16.png"
                                         },
                                         {
                                             "size": 32,
-                                            "url": "https://localhost:3000/assets/icon-32.png"
+                                            "url": "https://localhost:4000/assets/icon-32.png"
                                         },
                                         {
                                             "size": 80,
-                                            "url": "https://localhost:3000/assets/icon-80.png"
+                                            "url": "https://localhost:4000/assets/icon-80.png"
                                         }
                                     ],
                                     "controls": [
@@ -128,15 +132,15 @@
                                             "icons": [
                                                 {
                                                     "size": 16,
-                                                    "url": "https://localhost:3000/assets/icon-16.png"
+                                                    "url": "https://localhost:4000/assets/icon-16.png"
                                                 },
                                                 {
                                                     "size": 32,
-                                                    "url": "https://localhost:3000/assets/icon-32.png"
+                                                    "url": "https://localhost:4000/assets/icon-32.png"
                                                 },
                                                 {
                                                     "size": 80,
-                                                    "url": "https://localhost:3000/assets/icon-80.png"
+                                                    "url": "https://localhost:4000/assets/icon-80.png"
                                                 }
                                             ],
                                             "supertip": {

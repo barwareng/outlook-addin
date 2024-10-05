@@ -6,9 +6,9 @@ import ThirdPartyEmailPassword, {
 } from 'supertokens-web-js/recipe/thirdpartyemailpassword';
 
 import { view } from '$stores/views';
-import { Views } from './interfaces/views';
+import { Views } from '../interfaces/views';
 import { PUBLIC_API_BASE_URL, PUBLIC_APP_NAME } from '$env/static/public';
-import { toastError, toastSuccess } from './toast';
+import { toastError } from '../toast';
 import { browser } from '$app/environment';
 
 export const supertokensInit = () => {
@@ -20,7 +20,6 @@ export const supertokensInit = () => {
 		},
 		recipeList: [
 			Session.init({
-				autoAddCredentials: true,
 				tokenTransferMethod: 'header'
 			}),
 			ThirdPartyEmailPassword.init()
@@ -62,7 +61,8 @@ export const signinWithEmailAndPassword = async (email: string, password: string
 		}
 		return { emailErrors, passwordErrors };
 	} catch (err: any) {
-		toastError(err);
+		console.error(err);
+		// toastError(err);
 		if (err?.status >= 400 && err?.status < 500) view.set(Views.LOGIN);
 	}
 };
@@ -128,12 +128,20 @@ export const refreshToken = async () => {
 				Authorization: `Bearer ${getRefreshToken() ?? ''}`
 			}
 		});
+		if (!res.ok) {
+			console.log('refresh token expired');
+			view.set(Views.LOGIN);
+			localStorage.removeItem('accessToken');
+			localStorage.removeItem('refreshToken');
+			return;
+		}
 		const accessToken = res.headers.get('st-access-token');
 		const refreshToken = res.headers.get('st-refresh-token');
 		setAccessToken(accessToken!);
 		setRefreshToken(refreshToken!);
-		toastSuccess('Token refreshed');
+		return accessToken;
 	} catch (error) {
+		console.log('refresh token error', error);
 		toastError(error);
 	}
 };

@@ -1,43 +1,48 @@
 <script lang="ts">
-	import { client } from '$lib/api/Client';
+	import AuthenticatedWrapper from '$lib/view/AuthenticatedWrapper.svelte';
+	import ContactList from '$lib/view/ContactList.svelte';
 	import Home from '$lib/view/Home.svelte';
 	import Login from '$lib/view/Login.svelte';
-	import { view } from '$stores/views';
-	import type { IContactDetails } from '$utils/interfaces/contact.interface';
+	import { contactCategory, contactListKey, parsed, view } from '$stores/views';
+	import { getAccessToken, getRefreshToken, supertokensInit } from '$utils/auth/supertokens';
+
 	import { Views } from '$utils/interfaces/views';
-	import { doesSessionExist, supertokensInit } from '$utils/supertokens';
 	import { parseThread } from '$utils/thread-parser';
-	import { toastError, toastSuccess } from '$utils/toast';
+
+	import { doesSessionExist } from 'supertokens-web-js/recipe/session';
+
 	import { onMount } from 'svelte';
-	let subject = '';
-	let contacts: IContactDetails[] = [];
 	onMount(async () => {
 		supertokensInit();
 		doesSessionExist();
 
-		Office.onReady(() => {
-			toastSuccess('Office is ready');
-
-			contacts = parseThread(Office.context.mailbox.item);
-			Office.context.mailbox.addHandlerAsync(
-				Office.EventType.ItemChanged,
-				(contacts = parseThread(Office.context.mailbox.item))
-			);
+		Office.onReady(async () => {
+			if (!getAccessToken() || !getRefreshToken()) {
+				return view.set(Views.LOGIN);
+			}
+			$parsed = (await parseThread(Office.context.mailbox.item!))!;
+			Office.context.mailbox.addHandlerAsync(Office.EventType.ItemChanged, async () => {
+				$view = Views.HOME;
+				$contactListKey = '';
+				$contactCategory = '';
+				$parsed = (await parseThread(Office.context.mailbox.item!))!;
+			});
 		});
 	});
 </script>
 
 {#if $view === Views.LOGIN}
 	<Login />
-{:else if $view === Views.HOME}
-	<Home />
+{:else}
+	{#key $parsed}
+		<AuthenticatedWrapper>
+			{#if $view === Views.HOME}
+				<Home />
+			{:else if $view === Views.CONTACTS}
+				{#if $parsed.contacts?.length}
+					<ContactList />
+				{/if}
+			{/if}
+		</AuthenticatedWrapper>
+	{/key}
 {/if}
-
-<div class="bg-primary mt-1 space-y-1">
-	{#each contacts || [] as contact}
-		<div class="bg-background rounded p-2">
-			{contact.name}
-			{contact.email}
-		</div>
-	{/each}
-</div>

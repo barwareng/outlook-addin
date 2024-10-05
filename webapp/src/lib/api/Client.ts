@@ -1,7 +1,8 @@
-import { getAccessToken, refreshToken } from '$utils/supertokens';
+import { getAccessToken, refreshToken } from '$utils/auth/supertokens';
 import { ClientResponseError } from './ClientResponseError';
 import type { SendOptions } from './services/utils/options';
 import { VerificationService } from './services/VerificationService';
+import { ContactService } from './services/ContactService';
 import { PUBLIC_API_BASE_URL } from '$env/static/public';
 import { getTeamId } from '$utils';
 // list of known SendOptions keys (everything else is treated as query param)
@@ -32,10 +33,12 @@ export default class Client {
 	private cancelControllers: { [key: string]: AbortController } = {};
 	private enableAutoCancellation = true;
 	verification: VerificationService;
+	contacts: ContactService;
 	constructor(baseUrl = '/', fetchFunc = fetch) {
 		this.fetchFunc = fetchFunc;
 		this.baseUrl = baseUrl;
 		this.verification = new VerificationService(this);
+		this.contacts = new ContactService(this);
 	}
 	// Set the fetch function as Sveltekit's event.fetch or window.fetch
 	setFetch(fetchFunc: typeof fetch): Client {
@@ -143,11 +146,10 @@ export default class Client {
 		return this.fetchFunc(url, options)
 			.then(async (response) => {
 				let data: any = {};
-
 				try {
 					data = await response.json();
 					if (data.message == 'try refresh token') {
-						refreshToken();
+						await refreshToken();
 						return this.send(path, options);
 					}
 				} catch (_) {
@@ -166,10 +168,12 @@ export default class Client {
 				return data.data as T;
 			})
 			.catch((err) => {
+				// toastError(`Got error: ${JSON.stringify(err)}`);
 				if (err.status === 401) {
 					refreshToken();
+				} else {
+					throw new ClientResponseError(err);
 				}
-				throw new ClientResponseError(err);
 			});
 	}
 

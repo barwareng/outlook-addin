@@ -11,7 +11,7 @@
 	import type { ITeam } from '$utils/interfaces/teams.interface';
 	import Avatar from './images/Avatar.svelte';
 	import { PUBLIC_PLATFORM_APP_BASE_URL } from '$env/static/public';
-	import { fetchUserDetailsFromJwt } from '$utils/supertokens';
+	import { fetchUserDetailsFromJwt } from '$utils/auth/supertokens';
 	import { onMount } from 'svelte';
 
 	let className: string | undefined | null = undefined;
@@ -41,7 +41,7 @@
 				role="combobox"
 				aria-expanded={open}
 				aria-label="Select a team"
-				class={cn('mb-4 w-full justify-between rounded-full', className)}
+				class={cn('w-full justify-between rounded-full', className)}
 			>
 				{#key selectedTeam}
 					<Avatar src="" seed={selectedTeam?.id} class="mr-2 h-5 w-5" />

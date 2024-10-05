@@ -2,11 +2,13 @@
 	import { PUBLIC_PLATFORM_APP_BASE_URL } from '$env/static/public';
 	import '../app.css';
 	import { Toaster } from '$lib/components/ui/sonner';
-	import { doesSessionExist, logout } from '$utils/supertokens';
+	import { doesSessionExist, logout } from '$utils/auth/supertokens';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import { LogOut } from 'lucide-svelte';
 	import { ModeWatcher } from 'mode-watcher';
 </script>
+
+<ModeWatcher />
 
 <Toaster />
 <ModeWatcher />
