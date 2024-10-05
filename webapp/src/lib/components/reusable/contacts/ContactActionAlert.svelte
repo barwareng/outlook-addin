@@ -36,9 +36,10 @@
 			// Update parsed store categories removing the value from a matching category
 			removeContact(contact.email);
 			if (action == 'Trust') {
-				$parsed.categories.trustedContacts?.push(contact.email);
+				$parsed.categories.trustedContacts.push(contact.email);
 			} else {
-				$parsed.categories.untrustedContacts?.push(contact.email);
+				console.log($parsed.categories);
+				$parsed.categories.untrustedContacts.push(contact.email);
 			}
 			toastSuccess(`Contact has been marked ${action == 'Trust' ? 'trusted' : 'untrusted'}.`);
 		} catch (error) {
@@ -53,9 +54,8 @@
 		for (const category in $parsed.categories) {
 			if ($parsed.categories.hasOwnProperty(category)) {
 				// Filter the array to exclude the email if found
-				$parsed.categories[category] = $parsed.categories[category]?.filter(
-					(item) => item !== email
-				);
+				const key = category as keyof typeof $parsed.categories;
+				$parsed.categories[key] = $parsed.categories[key]?.filter((item) => item !== email);
 			}
 		}
 	};

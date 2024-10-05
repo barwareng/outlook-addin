@@ -14,24 +14,20 @@
 	import { doesSessionExist } from 'supertokens-web-js/recipe/session';
 
 	import { onMount } from 'svelte';
-	// let parsed: { contacts: IContactDetails[]; categories: IContactCategories };
 	onMount(async () => {
 		supertokensInit();
 		doesSessionExist();
 
 		Office.onReady(async () => {
-			// toastSuccess('Office is ready');
-			// await msGraph();
 			if (!getAccessToken() || !getRefreshToken()) {
 				return view.set(Views.LOGIN);
 			}
-			$parsed = await parseThread(Office.context.mailbox.item!);
+			$parsed = (await parseThread(Office.context.mailbox.item!))!;
 			Office.context.mailbox.addHandlerAsync(Office.EventType.ItemChanged, async () => {
 				$view = Views.HOME;
 				$contactListKey = '';
 				$contactCategory = '';
-				$parsed = await parseThread(Office.context.mailbox.item!);
-				// console.log('Parsed', parsed);
+				$parsed = (await parseThread(Office.context.mailbox.item!))!;
 			});
 		});
 	});
@@ -52,8 +48,3 @@
 		</AuthenticatedWrapper>
 	{/key}
 {/if}
-<!-- {#if parsed.contacts?.length}
-	{#each contacts as contact}
-		<Contact {contact} />
-	{/each}
-{/if} -->
