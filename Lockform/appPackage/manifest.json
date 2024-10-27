@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "name": {
         "short": "Lockform",
-        "full": "Contoso Task Pane Add-in"
+        "full": "Lockform Anti-phishing TaskPane Add-in"
     },
     "description": {
-        "short": "A template to get started.",
-        "full": "This is the template to get started."
+        "short": "Lockform ensures safety in email threads.",
+        "full": "Lockform checks the contacts in your email threads against your organization's list of trusted contacts and lets you know in a glance if it is safe to continue with the conversation thread."
     },
     "developer": {
-        "name": "Contoso",
-        "websiteUrl": "https://www.contoso.com",
-        "privacyUrl": "https://www.contoso.com/privacy",
-        "termsOfUseUrl": "https://www.contoso.com/servicesagreement"
+        "name": "Umm Labs",
+        "websiteUrl": "https://rentisha.com",
+        "privacyUrl": "https://drive.google.com/file/d/1eZ_u0bNIir-g0i9jLqMQ7cPLhGxPVbDU/view?usp=drive_link",
+        "termsOfUseUrl": "https://drive.google.com/file/d/1eZ_u0bNIir-g0i9jLqMQ7cPLhGxPVbDU/view?usp=drive_link"
     },
     "icons": {
         "outline": "assets/outline.png",
-        "color": "assets/color.png"
+        "color": "assets/outline.png"
     },
     "accentColor": "#230201",
     "localizationInfo": {
@@ -37,11 +37,11 @@
         }
     },
     "validDomains": [
-        "contoso.com"
+        "rentisha.com"
     ],
     "webApplicationInfo": {
         "id": "5c17ada0-175b-409f-a75c-d076e38274f5",
-        "resource": "http://localhost:5175/"
+        "resource": "https://dev.outlook-addin.rentisha.com/"
     },
     "extensions": [
         {
@@ -69,31 +69,15 @@
                     "id": "TaskPaneRuntime",
                     "type": "general",
                     "code": {
-                        "page": "http://localhost:5175/"
+                        "page": "https://dev.outlook-addin.rentisha.com/"
                     },
                     "lifetime": "short",
                     "actions": [
                         {
                             "id": "TaskPaneRuntimeShow",
                             "type": "openPage",
-                            "pinnable": false,
+                            "pinnable": true,
                             "view": "dashboard"
-                        }
-                    ]
-                },
-                {
-                    "id": "CommandsRuntime",
-                    "type": "general",
-                    "code": {
-                        "page": "https://localhost:3000/commands.html",
-                        "script": "https://localhost:3000/commands.js"
-                    },
-                    "lifetime": "short",
-                    "actions": [
-                        {
-                            "id": "action",
-                            "type": "executeFunction",
-                            "displayName": "action"
                         }
                     ]
                 }
@@ -148,30 +132,6 @@
                                                 "description": "Opens a pane displaying all available properties."
                                             },
                                             "actionId": "TaskPaneRuntimeShow"
-                                        },
-                                        {
-                                            "id": "ActionButton",
-                                            "type": "button",
-                                            "label": "Perform an action",
-                                            "icons": [
-                                                {
-                                                    "size": 16,
-                                                    "url": "https://localhost:3000/assets/icon-16.png"
-                                                },
-                                                {
-                                                    "size": 32,
-                                                    "url": "https://localhost:3000/assets/icon-32.png"
-                                                },
-                                                {
-                                                    "size": 80,
-                                                    "url": "https://localhost:3000/assets/icon-80.png"
-                                                }
-                                            ],
-                                            "supertip": {
-                                                "title": "Perform an action",
-                                                "description": "Perform an action when clicked."
-                                            },
-                                            "actionId": "action"
                                         }
                                     ]
                                 }

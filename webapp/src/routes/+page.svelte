@@ -12,6 +12,7 @@
 	import { doesSessionExist } from 'supertokens-web-js/recipe/session';
 
 	import { onMount } from 'svelte';
+
 	onMount(async () => {
 		supertokensInit();
 		doesSessionExist();
@@ -21,6 +22,7 @@
 				return view.set(Views.LOGIN);
 			}
 			$parsed = (await parseThread(Office.context.mailbox.item!))!;
+
 			Office.context.mailbox.addHandlerAsync(Office.EventType.ItemChanged, async () => {
 				$view = Views.HOME;
 				$contactListKey = '';
