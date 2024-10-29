@@ -20,9 +20,9 @@
     "signin": "office-addin-dev-settings m365-account login",
     "signout": "office-addin-dev-settings m365-account logout",
     "prettier": "office-addin-lint prettier",
-    "start": "office-addin-debugging start appPackage/manifest.json",
-    "stop": "office-addin-debugging stop appPackage/manifest.json",
-    "validate": "office-addin-manifest validate appPackage/manifest.json",
+    "start": "office-addin-debugging start manifest.json",
+    "stop": "office-addin-debugging stop manifest.json",
+    "validate": "office-addin-manifest validate manifest.json",
     "watch": "webpack --mode development --watch"
   },
   "dependencies": {

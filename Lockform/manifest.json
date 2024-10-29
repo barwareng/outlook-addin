@@ -1,25 +1,25 @@
 {
     "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.17/MicrosoftTeams.schema.json",
-    "id": "5c17ada0-175b-409f-a75c-d076e38274f5",
+    "id": "510661f9-0ef7-4dc1-9d11-916412d5de95",
     "manifestVersion": "1.17",
     "version": "1.0.0",
     "name": {
         "short": "Lockform",
-        "full": "Lockform"
+        "full": "Lockform Anti-phishing TaskPane Add-in"
     },
     "description": {
-        "short": "A template to get started.",
-        "full": "This is the template to get started."
+        "short": "Lockform ensures safety in email threads.",
+        "full": "Lockform checks the contacts in your email threads against your organization's list of trusted contacts and lets you know in a glance if it is safe to continue with the conversation thread."
     },
     "developer": {
-        "name": "Lockform",
-        "websiteUrl": "https://www.contoso.com",
-        "privacyUrl": "https://www.contoso.com/privacy",
-        "termsOfUseUrl": "https://www.contoso.com/servicesagreement"
+        "name": "Umm Labs",
+        "websiteUrl": "https://rentisha.com",
+        "privacyUrl": "https://www.rentisha.com/pdf/LockformPrivacy.pdf",
+        "termsOfUseUrl": "https://www.rentisha.com/pdf/LockformToS.pdf"
     },
     "icons": {
-        "outline": "assets/outline.png",
-        "color": "assets/color.png"
+        "outline": "appPackage/assets/outline.png",
+        "color": "appPackage/assets/outline.png"
     },
     "accentColor": "#230201",
     "localizationInfo": {
@@ -37,11 +37,11 @@
         }
     },
     "validDomains": [
-        "contoso.com"
+        "rentisha.com"
     ],
     "webApplicationInfo": {
         "id": "5c17ada0-175b-409f-a75c-d076e38274f5",
-        "resource": "http://localhost:5175/"
+        "resource": "https://dev.outlook-addin.rentisha.com/"
     },
     "extensions": [
         {
@@ -69,7 +69,7 @@
                     "id": "TaskPaneRuntime",
                     "type": "general",
                     "code": {
-                        "page": "http://localhost:5175/"
+                        "page": "https://dev.outlook-addin.rentisha.com/"
                     },
                     "lifetime": "short",
                     "actions": [
@@ -87,31 +87,25 @@
                     "contexts": [
                         "mailRead"
                     ],
-                    "requirements": {
-                        "formFactors": [
-                            "desktop",
-                            "mobile"
-                        ]
-                    },
                     "tabs": [
                         {
                             "builtInTabId": "TabDefault",
                             "groups": [
                                 {
                                     "id": "msgReadGroup",
-                                    "label": "Contoso Add-in",
+                                    "label": "Lockform Add-in",
                                     "icons": [
                                         {
                                             "size": 16,
-                                            "url": "https://localhost:4000/assets/icon-16.png"
+                                            "url": "https://localhost:4000/assets/outline.png"
                                         },
                                         {
                                             "size": 32,
-                                            "url": "https://localhost:4000/assets/icon-32.png"
+                                            "url": "https://localhost:4000/assets/outline.png"
                                         },
                                         {
                                             "size": 80,
-                                            "url": "https://localhost:4000/assets/icon-80.png"
+                                            "url": "https://localhost:4000/assets/outline.png"
                                         }
                                     ],
                                     "controls": [
@@ -122,15 +116,15 @@
                                             "icons": [
                                                 {
                                                     "size": 16,
-                                                    "url": "https://localhost:4000/assets/icon-16.png"
+                                                    "url": "https://localhost:4000/assets/outline.png"
                                                 },
                                                 {
                                                     "size": 32,
-                                                    "url": "https://localhost:4000/assets/icon-32.png"
+                                                    "url": "https://localhost:4000/assets/outline.png"
                                                 },
                                                 {
                                                     "size": 80,
-                                                    "url": "https://localhost:4000/assets/icon-80.png"
+                                                    "url": "https://localhost:4000/assets/outline.png"
                                                 }
                                             ],
                                             "supertip": {
@@ -142,27 +136,6 @@
                                     ]
                                 }
                             ]
-                        }
-                    ]
-                }
-            ],
-            "autoRunEvents": [
-                {
-                    "requirements": {
-                        "capabilities": [
-                            {
-                                "name": "Mailbox",
-                                "minVersion": "1.10"
-                            }
-                        ],
-                        "scopes": [
-                            "mail"
-                        ]
-                    },
-                    "events": [
-                        {
-                            "type": "onMessageRead",
-                            "actionId": "TaskPaneRuntimeShow"
                         }
                     ]
                 }
